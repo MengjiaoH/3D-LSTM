@@ -1,0 +1,5 @@
+*.h5
+data/
+lstm-env/
+__pycache__/
+
