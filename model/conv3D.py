@@ -2,14 +2,16 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-class ConvDeconv3d(nn.Module):
-    def __init__(self, in_channels, out_channels, opt):
+class conv3d_encoder(nn.Module):
+    def __init__(self, in_channels, out_channels, opt=None):
         super().__init__()
+        self.kernal_size = [2, 5, 5]
 
-        self.conv3d = nn.Conv3d(in_channels, out_channels)
-        # self.conv_transpose3d = nn.ConvTranspose3d(out_channels, out_channels, *vargs, **kwargs)
+        self.conv_layer = nn.Conv3d(in_channels, out_channels, kernel_size=self.kernal_size)
 
-    def forward(self, input):
-        # print(self.conv3d(input).shape, input.shape)
-        # return self.conv_transpose3d(self.conv3d(input))
-        return F.interpolate(self.conv3d(input), size=input.shape[-3:], mode="nearest")
+    def forward(self, x):
+        out = self.conv_layer(x)
+        ## this is in order to have the same effects as padding = same in tensorflow
+        out = F.interpolate(self.conv_layer(x), size=x.shape[-3:], mode="nearest")
+        
+        return out
