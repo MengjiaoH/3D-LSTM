@@ -2,6 +2,7 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+## This class is equavalent to _conv() function in rnn_cell.py
 class conv3d_encoder(nn.Module):
     def __init__(self, in_channels, out_channels, opt=None):
         super().__init__()
