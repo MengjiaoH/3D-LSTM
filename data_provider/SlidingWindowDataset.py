@@ -31,7 +31,7 @@ class SlidingWindowDataset(Dataset):
     
     def __getitem__(self, index):
         x = self.data[index : index + self.in_seq_len]
-        y = self.data[index + self.in_seq_len : index + self.in_seq_len + self.out_seq_len]\
+        y = self.data[index + self.in_seq_len : index + self.in_seq_len + self.out_seq_len]
         # switching to PyTorch format C,D,H,W
         x = np.swapaxes(x, 0, 1)
         y = np.swapaxes(y, 0, 1)
